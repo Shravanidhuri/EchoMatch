@@ -1,49 +1,58 @@
-# 🌟 EchoMatch – Dating Without Swiping 💬
+🌟 EchoMatch – Dating Without Swiping 💬
 
-**EchoMatch:** Chat-first dating app. Pictures hidden for 1 hour; connect through conversation before sharing images. ❤️🕒
+EchoMatch is a chat-first dating app where pictures stay hidden for 1 hour. Instead of judging by looks, you connect through conversation and shared interests first. ❤️🕒
 
----
+⸻
 
-## 🔍 Hypothesis
-Do people connect better through conversations, not pictures?  
-EchoMatch tests if meaningful interactions can happen **before seeing profile images**.
+🔍 Hypothesis
 
----
+Do people connect better through interests and conversations, not pictures?
+EchoMatch tests whether meaningful connections can form before seeing profile images.
 
-## ✨ Features
-- 💬 **Conversation First:** Profile pictures hidden for 1 hour.  
-- 🖼️ **Profile Reveal:** Picture unlocks after 1 hour.  
-- 📤 **Image Sharing:** Available only after 1 hour of chatting.  
-- 🔄 **Multiple Partners:** End chats or meet new partners anytime.  
-- 🎨 **Chaotic Aesthetic:** Hacker-terminal style UI with glitch effects.  
+⸻
 
----
+✨ Features
+	•	💬 Conversation First: Profile pictures hidden for 1 hour.
+	•	🖼️ Profile Reveal: Picture unlocks after 1 hour.
+	•	📤 Image Sharing: Only available after an hour of chatting.
+	•	🔄 Multiple Partners: End chats or meet new partners anytime.
+	•	🎯 Interest Matching: Get paired based on shared hobbies & preferences.
+	•	🎨 Chaotic Aesthetic: Hacker-terminal style UI with glitch effects.
 
-## 🚀 How to Use
-1. Open `index.html` in your browser.  
-2. Login with any username and password (demo).  
-3. Read the intro and press Enter to start.  
-4. Chat with your partner; profile unlocks after 1 hour.  
-5. Share images after chatting for 1 hour.  
-6. End chat or move to a new partner anytime.  
+⸻
 
----
+🚀 How to Use
+	1.	Open index.html in your browser.
+	2.	Login with any username and password (demo).
+	3.	Read the intro and press Enter to start.
+	4.	Chat with your partner; profile unlocks after 1 hour.
+	5.	Share images only after chatting for 1 hour.
+	6.	End chat or move to a new partner anytime.
 
-## 🛠️ Tech Stack
-- HTML  
-- CSS  
-- JavaScript  
+⸻
 
-_All in a single front-end file. No backend required._
+🛠️ Tech Stack
+	•	HTML
+	•	CSS
+	•	JavaScript
+(All in a single front-end file. No backend required.)
 
----
+⸻
 
-## 💡 Why EchoMatch?
-EchoMatch challenges the modern swipe culture, emphasizing **conversation over appearance**, and explores whether humans can form meaningful connections without relying on looks.  
+💡 Why EchoMatch?
 
----
+EchoMatch challenges swipe culture. Instead of judging by looks, you:
+✔ Connect through shared interests
+✔ Build bonds through conversation
+✔ Only then see profile pictures
 
-## 🎉 Demo
-Try it out locally by opening `index.html` in any browser.  
-Experience chatting, countdown unlocks, and sharing images after 1 hour! 🔓🖼️
+It’s dating, but human-first.
+
+⸻
+
+🎉 Demo
+
+Try it out locally by opening index.html in any browser.
+Chat, countdown, reveal, and experience interest-first matching! 🔓💬
+
 
