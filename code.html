@@ -41,6 +41,36 @@
   @keyframes glitchTop{0%{clip:rect(0,9999px,0,0)}20%{clip:rect(0,9999px,50px,0)}40%{clip:rect(0,9999px,0,0)}60%{clip:rect(0,9999px,30px,0)}100%{clip:rect(0,9999px,0,0)}}
   @keyframes glitchBottom{0%{clip:rect(0,9999px,0,0)}20%{clip:rect(50px,9999px,80px,0)}40%{clip:rect(0,9999px,0,0)}60%{clip:rect(70px,9999px,100px,0)}100%{clip:rect(0,9999px,0,0)}}
 
+  /* Interests */
+  .interests h1{
+    font-family:'Rubik Spray Paint';
+    font-size:2em;
+    color:#f06;
+    text-shadow:1px 1px #0ff;
+    margin-bottom:15px;
+  }
+  .interests input{
+    background:#000;
+    border:1px solid #0f0;
+    color:#0f0;
+    padding:8px;
+    margin:6px;
+    font-size:12px;
+    text-align:center;
+    width:250px;
+  }
+  .interests button{
+    background:#0ff;
+    color:#000;
+    font-weight:bold;
+    border:none;
+    padding:8px 16px;
+    margin-top:10px;
+    cursor:pointer;
+    font-size:12px;
+  }
+  .interests button:hover{background:#00cccc;}
+
   /* Chat */
   .app{display:none;flex-direction:column;height:100vh;padding:16px;}
   .title{font-family:'Rubik Spray Paint';font-size:1.5em;color:#f06;text-shadow:1px 1px #0ff;margin-bottom:10px;}
@@ -78,7 +108,15 @@
   <h1>EchoMatch</h1>
   <div class="glitch" data-text="> Hypothesis: Do people connect better through conversations, not pictures?"></div>
   <p id="typedText"></p>
-  <div class="press" id="pressEnter" style="display:none;">▶ Press Enter to Start</div>
+  <div class="press" id="pressEnter" style="display:none;">▶ Press Enter to Continue</div>
+</div>
+
+<!-- Interests Screen -->
+<div class="interests center" id="interests" style="display:none;">
+  <h1>Select Your Interests</h1>
+  <p style="font-size:12px; color:#0ff; margin-bottom:10px;">Enter a few things you like (comma separated)</p>
+  <input type="text" id="interestsInput" placeholder="e.g. Coding, Music, Dance">
+  <button id="startMatchBtn">Start Matching</button>
 </div>
 
 <!-- Chat UI -->
@@ -104,6 +142,7 @@ const loader=document.getElementById("loader");
 const loginEl=document.getElementById("login");
 const introEl=document.getElementById("intro");
 const appEl=document.getElementById("app");
+const interestsEl=document.getElementById("interests");
 const messagesEl=document.getElementById("messages");
 const inputEl=document.getElementById("msgInput");
 const sendBtn=document.getElementById("sendBtn");
@@ -114,6 +153,8 @@ const typedTextEl=document.getElementById("typedText");
 const pressEnterEl=document.getElementById("pressEnter");
 const endChatBtn=document.getElementById("endChatBtn");
 const nextChatBtn=document.getElementById("nextChatBtn");
+const interestsInput=document.getElementById("interestsInput");
+const startMatchBtn=document.getElementById("startMatchBtn");
 
 // Demo setup
 let startedAt=Date.now();
@@ -126,6 +167,7 @@ const demoAvatars=[
 ];
 let currentPartner=0;
 let vibeScore=0;
+let userInterests=[];
 
 let state={messages:[{sender:"them",text:"Welcome to EchoMatch."},{sender:"them",text:"No swipes. No pics. Just vibes for 1 hour."}]};
 
@@ -155,11 +197,28 @@ function startTypingIntro(){
   },30);
 }
 
-// Start App
-function startApp(){introEl.style.display="none"; appEl.style.display="flex"; renderMessages(); setInterval(updateCountdown,1000); updateCountdown();}
+// Move to Interests
+function goToInterests(){
+  introEl.style.display="none";
+  interestsEl.style.display="flex";
+}
 document.addEventListener("keydown",e=>{
-  if(e.key==="Enter" && introEl.style.display!=="none" && descCharIndex>=descriptionText.length){startApp();}
+  if(e.key==="Enter" && introEl.style.display!=="none" && descCharIndex>=descriptionText.length){goToInterests();}
 });
+
+// Start Matching
+startMatchBtn.onclick=()=>{
+  const val=interestsInput.value.trim();
+  if(!val){alert("Please enter at least one interest!");return;}
+  userInterests=val.split(",").map(s=>s.trim().toLowerCase());
+  console.log("User interests:",userInterests);
+  currentPartner=Math.floor(Math.random()*demoAvatars.length);
+  interestsEl.style.display="none";
+  startApp();
+}
+
+// Start App
+function startApp(){appEl.style.display="flex"; renderMessages(); setInterval(updateCountdown,1000); updateCountdown();}
 
 // Chat rendering
 function renderMessages(){
@@ -187,24 +246,16 @@ function renderMessages(){
 function updateCountdown(){
   const now = Date.now();
   const left = (startedAt + REVEAL_MS) - now;
-
   if(left <= 0){
     countdownEl.textContent = "Profile picture revealed!";
     renderMessages();
   } else {
-    // Convert milliseconds to hh:mm:ss
     const hours = Math.floor(left / (1000*60*60));
     const minutes = Math.floor((left % (1000*60*60)) / (1000*60));
     const seconds = Math.floor((left % (1000*60)) / 1000);
     countdownEl.textContent = `Picture unlocks in ${hours}h ${minutes}m ${seconds}s`;
   }
-
-  // Enable share image only after 1 hour
-  if(now >= startedAt + IMAGE_SHARE_MS){
-    shareContainer.style.display = "block";
-  } else {
-    shareContainer.style.display = "none";
-  }
+  if(now >= startedAt + IMAGE_SHARE_MS){shareContainer.style.display = "block";} else {shareContainer.style.display = "none";}
 }
 
 // Send message
@@ -214,7 +265,6 @@ sendBtn.onclick=()=>{
   if(!txt) return;
   state.messages.push({sender:"me",text:txt});
   inputEl.value="";
-  // Fake response
   if(Math.random()<0.5){state.messages.push({sender:"them",text:"Interesting!"}); vibeScore+=10;}
   renderMessages();
 };
